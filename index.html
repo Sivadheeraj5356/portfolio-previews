@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siva Dheeraj - Design Previews</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#141413;color:#F4F1EA;font-family:'Sora',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-.02em}
+p{margin-top:14px;color:#8f8d86;font-size:15px;max-width:480px}
+.opts{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap;justify-content:center}
+a.opt{display:block;width:min(300px,86vw);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:26px;text-decoration:none;color:#F4F1EA;text-align:left;transition:transform .25s,border-color .25s}
+a.opt:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.4)}
+a.opt .k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8f8d86}
+a.opt h2{font-size:22px;font-weight:700;margin-top:8px}
+a.opt span{display:block;margin-top:8px;font-size:13px;color:#8f8d86;line-height:1.5}
+a.opt .bar{height:6px;border-radius:99px;margin-top:18px}
+.a .bar{background:linear-gradient(90deg,#C2410C,#E8935E)}
+.b .bar{background:linear-gradient(90deg,#6366F1,#22D3EE)}
+.c .bar{background:linear-gradient(90deg,#F59E0B,#DB2777)}
+.note{margin-top:40px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c5a54;letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<h1>Portfolio design previews</h1>
+<p>Three directions for sivadheeraj.vercel.app. Open each one, click around, then pick a favorite.</p>
+<div class="opts">
+  <a class="opt a" href="a/"><span class="k">Preview A</span><h2>Editorial</h2><span>Warm paper, oversized serif type, hover-reveal project rows, marquee.</span><div class="bar"></div></a>
+  <a class="opt b" href="b/"><span class="k">Preview B</span><h2>Midnight</h2><span>Dark aurora gradients, glass cards with spotlight hover, typing terminal line.</span><div class="bar"></div></a>
+  <a class="opt c" href="c/"><span class="k">Preview C</span><h2>Bento</h2><span>Playful tile grid with 3D tilt, live clock, mini terminal, featured project.</span><div class="bar"></div></a>
+</div>
+<p class="note">Preview only - the live site is unchanged</p>
+</body>
+</html>
