@@ -146,11 +146,11 @@ html{scroll-behavior:auto}html.lenis,html.lenis body{height:auto}.lenis.lenis-sm
 @media(prefers-reduced-motion:reduce){#motion-intro{display:none}.rv{opacity:1;transform:none}.hero h2 .w i{transform:none}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 /* Identity and motion revision */
-.identity{padding:38px 0 45px;position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);margin-bottom:24px}
+.identity{container-type:inline-size;padding:38px 0 45px;position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);margin-bottom:24px}
 .identity-kicker,.identity-bottom{display:flex;justify-content:space-between;gap:24px;font:10px 'JetBrains Mono';letter-spacing:.12em;color:var(--muted)}
 .identity-bottom{margin-top:30px;font-size:11px;letter-spacing:.03em}.identity-bottom span:first-child{color:var(--green)}
-.name{font:800 clamp(90px,15.4vw,210px)/1.05 'Sora',sans-serif;letter-spacing:-.075em;white-space:nowrap;color:var(--ink);padding:18px 5px 5px 0;display:flex;gap:.22em}
-.name-line{display:inline-block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}.name-line>span{display:inline-block;transform:translateY(115%);animation:nameReveal 1.5s cubic-bezier(.16,1,.3,1) .12s forwards}.name-line:nth-child(2)>span{animation-delay:.24s}
+.name{font:800 clamp(0px,16.2cqw,194px)/1.05 'Sora',sans-serif;letter-spacing:-.065em;white-space:nowrap;color:var(--ink);padding:18px 5px 5px 0;display:flex;gap:.16em}
+.name-line{display:inline-block;flex-shrink:0;overflow:hidden;padding-right:.08em;padding-bottom:.14em;margin-bottom:-.14em}.name-line>span{display:inline-block;transform:translateY(115%);animation:nameReveal 1.5s cubic-bezier(.16,1,.3,1) .12s forwards}.name-line:nth-child(2)>span{animation-delay:.24s}
 @keyframes nameReveal{to{transform:translateY(0)}}
 .tile.rv.in{transform:none;transition:opacity .9s ease,box-shadow .4s,transform .8s cubic-bezier(.16,1,.3,1)}
 #work>.tile{clip-path:inset(12% 0 0 0 round 26px);opacity:0;transform:translateY(55px);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),opacity .7s!important}
