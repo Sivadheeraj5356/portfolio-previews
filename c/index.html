@@ -6,110 +6,139 @@
 <title>Siva Dheeraj - Preview C</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FAF5EC; --card:#FFFFFF; --line:#EAE1CE; --ink:#1C1A15; --muted:#7A7466;
-  --orange:#C2410C; --indigo:#4F46E5; --teal:#0D9488; --pink:#DB2777; --amber:#F59E0B;
+  --paper:#F6F2E9; --card:#FFFFFF; --line:#E7DEC9; --ink:#17150F; --ink2:#232014; --muted:#77705F;
+  --orange:#C2410C; --amber:#F59E0B; --green:#0E9F6E; --indigo:#4F46E5; --rose:#DB2777;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:'Sora',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--orange);color:#fff}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px;position:relative}
+/* giant watermark */
+.wm{position:fixed;top:44%;left:50%;transform:translate(-50%,-50%);font-weight:800;font-size:52vw;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(23,21,15,.05);pointer-events:none;z-index:0;letter-spacing:-.05em;user-select:none}
 /* preview switcher */
-.previews{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:70;display:flex;gap:6px;background:var(--ink);border-radius:999px;padding:6px;box-shadow:0 8px 30px rgba(28,26,21,.35)}
+.previews{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:70;display:flex;gap:6px;background:var(--ink);border-radius:999px;padding:6px;box-shadow:0 10px 34px rgba(23,21,15,.4)}
 .previews a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a39e93;text-decoration:none;padding:7px 16px;border-radius:999px;transition:all .25s}
 .previews a.on{background:var(--orange);color:#fff}
 .previews a:not(.on):hover{color:#fff}
 .previews .tag{color:#a39e93;padding:7px 4px 7px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 /* nav */
-nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0}
+nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;position:relative;z-index:2}
 nav .logo{font-weight:800;font-size:19px;text-decoration:none;color:var(--ink);letter-spacing:-.02em}
 nav .logo span{color:var(--orange)}
 nav .links a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-left:22px;transition:color .2s}
 nav .links a:hover{color:var(--orange)}
 @media(max-width:640px){nav .links a{margin-left:12px}}
-/* bento grid */
-.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:10px 0 20px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;transform-style:preserve-3d;will-change:transform}
-.tile:hover{box-shadow:0 18px 44px rgba(28,26,21,.12)}
-.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.row2{grid-row:span 2}
-@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}.span3,.span4{grid-column:span 2}}
-@media(max-width:560px){.bento{grid-template-columns:1fr}.span2,.span3,.span4{grid-column:span 1}}
-/* hero tile */
-.hero-tile{background:linear-gradient(135deg,#FFF8EC 0%,#FFEEDD 100%)}
-.hero-tile .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
-.hero-tile h1{font-size:clamp(38px,5vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.03em;margin-top:16px}
-.hero-tile h1 em{font-style:normal;color:var(--orange)}
-.hero-tile p{margin-top:18px;font-size:15px;line-height:1.65;color:var(--muted);max-width:460px}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;position:relative;z-index:1;padding-bottom:15px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px;position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.tile:hover{box-shadow:0 22px 50px rgba(23,21,15,.13)}
+.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}.r2{grid-row:span 2}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.s3,.s4,.s6{grid-column:span 2}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.s2,.s3,.s4,.s6{grid-column:span 1}}
+/* entrance cascade */
+.rv{opacity:0;transform:translateY(30px) scale(.97) rotate(.4deg);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.16,.84,.3,1) var(--d,0s)}
+.rv.in{opacity:1;transform:translateY(0) scale(1) rotate(0)}
+/* hero */
+.hero{background:linear-gradient(150deg,#FFF9EC 0%,#FFE9D6 100%);display:flex;flex-direction:column;justify-content:center}
+.hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px}
+.hero .eyebrow::before{content:"";width:30px;height:1px;background:var(--orange)}
+.hero h1{font-size:clamp(40px,4.9vw,68px);font-weight:800;line-height:.99;letter-spacing:-.035em;margin-top:18px}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .w i{display:inline-block;font-style:normal;transform:translateY(110%);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
+.hero h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--orange);letter-spacing:-.01em}
+@keyframes rise{to{transform:translateY(0)}}
+.hero p{margin-top:20px;font-size:15px;line-height:1.7;color:var(--muted);max-width:440px}
 /* availability */
-.avail{display:flex;flex-direction:column;justify-content:space-between}
-.pill{display:inline-flex;align-items:center;gap:9px;background:#ECFDF5;border:1px solid #A7F3D0;color:#047857;font-family:'JetBrains Mono',monospace;font-size:11.5px;border-radius:999px;padding:8px 16px;width:fit-content}
-.pill .pd{width:8px;height:8px;border-radius:50%;background:#10B981;animation:pl 1.6s ease-out infinite}
-@keyframes pl{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}100%{box-shadow:0 0 0 9px rgba(16,185,129,0)}}
-.avail .big{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:16px;line-height:1.3}
+.avail{background:#0C1F17;color:#D7F5E6;display:flex;flex-direction:column;justify-content:space-between;border-color:#16382A}
+.pill{display:inline-flex;align-items:center;gap:9px;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.4);color:#34D399;font-family:'JetBrains Mono',monospace;font-size:11.5px;border-radius:999px;padding:8px 16px;width:fit-content}
+.pill .pd{width:8px;height:8px;border-radius:50%;background:#34D399;animation:pl 1.6s ease-out infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}100%{box-shadow:0 0 0 10px rgba(52,211,153,0)}}
+.avail .big{font-size:clamp(19px,1.9vw,23px);font-weight:700;letter-spacing:-.02em;margin-top:18px;line-height:1.3;color:#F0FBF4}
+.avail .big a{color:#F0FBF4;text-decoration:none;border-bottom:2px solid #34D399;transition:color .2s,border-color .2s}
+.avail .big a:hover{color:#34D399}
 /* clock */
-.clock{background:var(--ink);color:#F5F1E8;display:flex;flex-direction:column;justify-content:space-between}
-.clock .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8f8a7d}
-.clock .time{font-size:clamp(30px,3.4vw,44px);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:10px}
+.clock{background:var(--ink);color:#F5F1E8;display:flex;flex-direction:column;justify-content:space-between;border-color:#2c2820}
+.clock .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8f8a7d}
+.clock .time{font-size:clamp(28px,3vw,42px);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:12px}
 .clock .date{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#8f8a7d;margin-top:6px}
 /* terminal */
-.term{background:#111318;color:#C9D1D9;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;display:flex;flex-direction:column;justify-content:center}
+.term{background:#0F1117;color:#C9D1D9;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;display:flex;flex-direction:column;justify-content:center;border-color:#1f2330}
 .term .bar{display:flex;gap:6px;margin-bottom:14px}
 .term .bar i{width:10px;height:10px;border-radius:50%;display:block}
 .term .bar i:nth-child(1){background:#FF5F57}.term .bar i:nth-child(2){background:#FEBC2E}.term .bar i:nth-child(3){background:#28C840}
-.term .ln{white-space:nowrap;overflow:hidden}
+.term .ln{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .term .p{color:#7EE787}
-.term .c{color:#79C0FF}
-/* featured project */
-.feat{background:linear-gradient(135deg,#1C1A15 0%,#33301F 100%);color:#F5F1E8}
-.feat .tag2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-.feat h3{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em;margin-top:12px}
-.feat p{margin-top:12px;font-size:14px;line-height:1.65;color:#B9B3A4;max-width:520px}
-.feat .links{margin-top:20px;display:flex;gap:14px}
-.btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;padding:11px 22px;border-radius:999px;transition:transform .2s,background .2s,color .2s}
-.btn.solid{background:var(--amber);color:#1C1A15}
+.term .c{color:#79C0FF;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* featured */
+.feat{background:linear-gradient(140deg,#17150F 0%,#2E2A17 100%);color:#F5F1E8;border-color:#3a3524;display:flex;flex-direction:column;justify-content:space-between}
+.feat .top{display:flex;justify-content:space-between;align-items:center}
+.feat .tag2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+.livedot{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#FBBF24}
+.livedot i{width:7px;height:7px;border-radius:50%;background:#FBBF24;animation:pl2 1.5s ease-out infinite}
+@keyframes pl2{0%{box-shadow:0 0 0 0 rgba(251,191,36,.5)}100%{box-shadow:0 0 0 9px rgba(251,191,36,0)}}
+.feat h3{font-size:clamp(30px,3.4vw,46px);font-weight:800;letter-spacing:-.03em;margin-top:16px}
+.feat h3 span{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--amber)}
+.feat p{margin-top:12px;font-size:14px;line-height:1.7;color:#B9B3A4;max-width:520px}
+.feat .stackrow{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.feat .stackrow span{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#D6CFAE;border:1px solid #4a4429;border-radius:999px;padding:5px 12px}
+.feat .links{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;padding:12px 24px;border-radius:999px;transition:transform .2s,box-shadow .2s}
+.btn.solid{background:var(--amber);color:#17150F;font-weight:500}
+.btn.solid:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(245,158,11,.35)}
 .btn.ghost{border:1px solid #5C5747;color:#F5F1E8}
-.btn:hover{transform:translateY(-2px)}
+.btn.ghost:hover{transform:translateY(-2px)}
+/* image tiles */
+.imgtile{padding:0;display:flex;flex-direction:column}
+.imgtile .imgwrap{overflow:hidden;border-bottom:1px solid var(--line)}
+.imgtile img{width:100%;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.imgtile:hover img{transform:scale(1.045)}
+.imgtile .pad{padding:18px 24px 22px}
 /* mini projects */
-.mini .m-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange)}
-.mini h4{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-top:8px}
-.mini p{font-size:12.5px;line-height:1.55;color:var(--muted);margin-top:8px}
+.mini .m-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:.08em}
+.mini h4{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-top:8px;display:flex;align-items:baseline;justify-content:space-between}
+.mini h4 .arr{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--orange);opacity:0;transform:translateX(-6px);transition:all .25s}
+.mini:hover h4 .arr{opacity:1;transform:translateX(0)}
+.mini p{font-size:12.5px;line-height:1.6;color:var(--muted);margin-top:8px}
 .mini .m-links{margin-top:14px}
 .mini .m-links a{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);text-decoration:none;margin-right:14px;border-bottom:1px solid transparent;transition:border .2s}
 .mini .m-links a:hover{border-color:var(--orange)}
-.mini.imgtile{padding:0;display:flex;flex-direction:column}
-.mini.imgtile img{width:100%;display:block;border-bottom:1px solid var(--line)}
-.mini.imgtile .pad{padding:20px 24px 24px}
-/* marquee tile */
-.marq{background:var(--orange);color:#FFF4E8;display:flex;align-items:center;overflow:hidden;white-space:nowrap;padding:20px 0}
-.marq .track{display:inline-block;animation:scroll 22s linear infinite}
-.marq span{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0 24px}
+/* marquee */
+.marq{background:var(--orange);color:#FFF4E8;display:flex;align-items:center;overflow:hidden;white-space:nowrap;padding:22px 0;border-color:#a83708}
+.marq .track{display:inline-block;animation:scroll 24s linear infinite}
+.marq:hover .track{animation-play-state:paused}
+.marq span{font-size:21px;font-weight:700;letter-spacing:-.01em;margin:0 24px}
+.marq span.alt{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
 @keyframes scroll{to{transform:translateX(-50%)}}
-/* about tile */
-.about-tile{background:linear-gradient(135deg,#EEF2FF 0%,#E0E7FF 100%)}
-.about-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo)}
-.about-tile h3{font-size:clamp(19px,2.2vw,26px);font-weight:700;letter-spacing:-.02em;line-height:1.35;margin-top:12px}
-.about-tile h3 span{color:var(--indigo)}
-.about-tile p{margin-top:14px;font-size:13.5px;line-height:1.7;color:#4B4A63}
-/* contact tile */
-.contact-tile{background:linear-gradient(135deg,#FDF2F8 0%,#FCE7F3 100%)}
-.contact-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
-.contact-tile h3{font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;margin-top:12px}
-.contact-tile h3 span{color:var(--pink)}
-.contact-tile .email{display:inline-block;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--pink);padding-bottom:3px;transition:color .2s}
-.contact-tile .email:hover{color:var(--pink)}
+/* about */
+.about-tile{background:linear-gradient(140deg,#ECEFFC 0%,#DFE4FA 100%);border-color:#cdd4f0}
+.about-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo)}
+.about-tile h3{font-size:clamp(19px,2.1vw,25px);font-weight:700;letter-spacing:-.02em;line-height:1.35;margin-top:12px}
+.about-tile h3 span{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--indigo)}
+.about-tile p{margin-top:14px;font-size:13.5px;line-height:1.75;color:#4B4A63}
+/* contact */
+.contact-tile{background:linear-gradient(140deg,#FCEFF6 0%,#F9E2EF 100%);border-color:#f0cfe2;display:flex;flex-direction:column;justify-content:center}
+.contact-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+.contact-tile h3{font-size:clamp(24px,2.8vw,34px);font-weight:800;letter-spacing:-.03em;margin-top:12px}
+.contact-tile h3 span{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--rose)}
+.contact-tile .email{display:inline-block;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--rose);padding-bottom:3px;width:fit-content;transition:color .2s}
+.contact-tile .email:hover{color:var(--rose)}
 .contact-tile .socials{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
 .contact-tile .socials a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none}
-.contact-tile .socials a:hover{color:var(--pink)}
-footer{padding:26px 0 110px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-/* reveal */
-.rv{opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
-.rv.in{opacity:1;transform:translateY(0) scale(1)}
+.contact-tile .socials a:hover{color:var(--rose)}
+footer{padding:24px 0 110px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
 </style>
 </head>
 <body>
+<div class="grain"></div>
+<div class="wm">SD</div>
 <div class="previews"><span class="tag">Preview</span><a href="../a/">A</a><a href="../b/">B</a><a href="../c/" class="on">C</a></div>
 <div class="wrap">
   <nav>
@@ -119,47 +148,44 @@ footer{padding:26px 0 110px;display:flex;justify-content:space-between;font-fami
     </div>
   </nav>
 
-  <div class="bento">
-    <div class="tile span2 row2 hero-tile rv">
+  <div class="grid">
+    <div class="tile s4 r2 hero rv" style="--d:.02s">
       <p class="eyebrow">Full-stack developer</p>
-      <h1>Building products, <em>agents &amp; evals</em> for the AI era.</h1>
+      <h1 id="hero1"></h1>
       <p>I design and ship web products end to end - from agent evaluation platforms and benches to local-first GTM tooling.</p>
     </div>
 
-    <div class="tile span2 avail rv">
+    <div class="tile s2 avail rv" style="--d:.10s">
       <span class="pill"><span class="pd"></span>Open to new opportunities</span>
-      <div class="big">Latest launch:<br>SignalDesk &#8599;</div>
+      <div class="big">Latest launch:<br><a href="https://signaldesk-gtm-mzy9.onrender.com/" target="_blank" rel="noopener noreferrer">SignalDesk &#8599;</a></div>
     </div>
 
-    <div class="tile clock rv">
+    <div class="tile s2 clock rv" style="--d:.16s">
       <span class="lbl">Your local time</span>
       <div class="time" id="time">--:--:--</div>
       <div class="date" id="date"></div>
     </div>
-
-    <div class="tile term rv">
-      <div>
-        <div class="bar"><i></i><i></i><i></i></div>
-        <div class="ln"><span class="p">siva@dev</span>:~$ <span id="termtext"></span><span class="c">&#9612;</span></div>
-      </div>
-    </div>
   </div>
 
-  <div class="bento" id="work">
-    <div class="tile span2 feat rv">
-      <span class="tag2">Featured project</span>
-      <h3>SignalDesk</h3>
-      <p>GTM workspace - evidence-backed account scoring, traceable research runs and reviewable outreach drafts. Runs hosted or fully local.</p>
+  <div class="grid" id="work">
+    <div class="tile s3 feat rv" style="--d:.05s">
+      <div>
+        <div class="top"><span class="tag2">Featured project</span><span class="livedot"><i></i>LIVE</span></div>
+        <h3>Signal<span>Desk</span></h3>
+        <p>GTM workspace - evidence-backed account scoring, traceable research runs and reviewable outreach drafts. Runs hosted or fully local.</p>
+        <div class="stackrow"><span>Python</span><span>Postgres</span><span>Local LLM</span></div>
+      </div>
       <div class="links">
         <a class="btn solid" href="https://signaldesk-gtm-mzy9.onrender.com/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
         <a class="btn ghost" href="https://github.com/Sivadheeraj5356/signaldesk-gtm" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
       </div>
     </div>
-    <div class="tile span2 mini imgtile rv">
-      <img src="https://raw.githubusercontent.com/Sivadheeraj5356/portfolio/main/public/images/portfolio-mockai.png" alt="Mock AI" loading="lazy" onerror="this.style.display='none'">
+
+    <div class="tile s3 mini imgtile rv" style="--d:.12s">
+      <div class="imgwrap"><img src="https://raw.githubusercontent.com/Sivadheeraj5356/portfolio/main/public/images/portfolio-mockai.png" alt="Mock AI" loading="lazy" onerror="this.closest('.imgtile').style.display='none'"></div>
       <div class="pad">
         <span class="m-num">03</span>
-        <h4>Mock AI</h4>
+        <h4>Mock AI <span class="arr">&#8599;</span></h4>
         <p>AI interview practice platform with realistic simulated interviews and instant, structured feedback.</p>
         <div class="m-links">
           <a href="https://mock-ai-one.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
@@ -167,50 +193,73 @@ footer{padding:26px 0 110px;display:flex;justify-content:space-between;font-fami
         </div>
       </div>
     </div>
-    <div class="tile mini rv">
+
+    <div class="tile s2 mini rv" style="--d:.05s">
       <span class="m-num">01</span>
-      <h4>AgentForge</h4>
-      <p>Evaluation infrastructure for AI agents - 23-task Horizon v1 catalog, hidden graders, staged rewards.</p>
+      <h4>AgentForge <span class="arr">&#8599;</span></h4>
+      <p>Evaluation infrastructure for AI agents - a 23-task Horizon v1 catalog with hidden graders and staged rewards.</p>
       <div class="m-links">
         <a href="https://agentforge-omega-khaki.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
         <a href="https://github.com/Sivadheeraj5356/agentforge" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
       </div>
     </div>
-    <div class="tile mini rv">
+
+    <div class="tile s2 mini rv" style="--d:.10s">
       <span class="m-num">04</span>
-      <h4>Vela Scheduler Bench</h4>
-      <p>Eval environment for scheduling agents - timezone math, multi-party constraints, staged graders.</p>
+      <h4>Vela Scheduler Bench <span class="arr">&#8599;</span></h4>
+      <p>Eval environment for scheduling agents - timezone math, multi-party constraints, reschedules and staged graders.</p>
       <div class="m-links">
         <a href="https://github.com/Sivadheeraj5356/vela-scheduler-bench" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
       </div>
     </div>
-    <div class="tile mini rv">
+
+    <div class="tile s2 mini rv" style="--d:.15s">
       <span class="m-num">05</span>
-      <h4>QuizSift</h4>
+      <h4>QuizSift <span class="arr">&#8599;</span></h4>
       <p>Scored quiz builder for lead qualification and product recommendations, shareable with a link.</p>
       <div class="m-links">
         <a href="https://github.com/Sivadheeraj5356/quizsift" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
       </div>
     </div>
-    <div class="tile mini rv">
-      <span class="m-num">06</span>
-      <h4>Tutor AI</h4>
-      <p>AI tutor that explains concepts, answers questions and builds personalized learning paths.</p>
+
+    <div class="tile s2 term rv" style="--d:.20s">
+      <div>
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="ln"><span class="p">siva@dev</span>:~$ <span id="termtext"></span><span class="c">&#9612;</span></div>
+      </div>
+    </div>
+
+    <div class="tile s2 mini imgtile rv" style="--d:.25s">
+      <div class="imgwrap"><img src="https://raw.githubusercontent.com/Sivadheeraj5356/portfolio/main/public/images/portfolio-tutorai.png" alt="Tutor AI" loading="lazy" onerror="this.closest('.imgtile').style.display='none'"></div>
+      <div class="pad">
+        <span class="m-num">06</span>
+        <h4>Tutor AI <span class="arr">&#8599;</span></h4>
+        <p>AI tutor that explains concepts, answers questions and builds personalized learning paths.</p>
+        <div class="m-links">
+          <a href="https://tutor-ai-red.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
+          <a href="https://github.com/Sivadheeraj5356/Tutor-AI" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile s2 mini rv" style="--d:.30s">
+      <span class="m-num">07</span>
+      <h4>More on GitHub <span class="arr">&#8599;</span></h4>
+      <p>Experiments, benches and older apps - AWS community site, WhatsApp auto-responder, Pomodoro and more.</p>
       <div class="m-links">
-        <a href="https://tutor-ai-red.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
-        <a href="https://github.com/Sivadheeraj5356/Tutor-AI" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+        <a href="https://github.com/Sivadheeraj5356?tab=repositories" target="_blank" rel="noopener noreferrer">Browse &#8599;</a>
       </div>
     </div>
   </div>
 
-  <div class="bento">
-    <div class="tile span4 marq rv"><div class="track" id="track"></div></div>
-    <div class="tile span2 about-tile rv" id="about">
+  <div class="grid">
+    <div class="tile s6 marq rv" style="--d:.05s"><div class="track" id="track"></div></div>
+    <div class="tile s3 about-tile rv" id="about" style="--d:.10s">
       <span class="lbl">About</span>
       <h3>Craft-first: clean interfaces, honest tooling, software that <span>does what it says.</span></h3>
       <p>Working across Next.js, React, TypeScript and Python. Recent work: AI agents and how to evaluate them - hidden verifiers, benches for scheduling and ad-creative agents on real failure modes. Before that, consumer apps like Mock AI, Tutor AI and Pomodoro.</p>
     </div>
-    <div class="tile span2 contact-tile rv" id="contact">
+    <div class="tile s3 contact-tile rv" id="contact" style="--d:.15s">
       <span class="lbl">Contact</span>
       <h3>Let&rsquo;s build <span>something.</span></h3>
       <a class="email" href="mailto:sivadheeraj5356@gmail.com">sivadheeraj5356@gmail.com</a>
@@ -225,6 +274,14 @@ footer{padding:26px 0 110px;display:flex;justify-content:space-between;font-fami
   <footer><span>&copy; 2026 Siva Dheeraj</span><span>Design preview C</span></footer>
 </div>
 <script>
+// hero headline word rise
+(function(){
+  const words=[["Building","w"],["products,","w"],["agents & evals","em"],["for","w"],["the","w"],["AI","w"],["era.","w"]];
+  const h=document.getElementById('hero1');
+  h.innerHTML=words.map((w,i)=>w[1]==='em'
+    ? `<span class="w"><i style="animation-delay:${.12+i*.07}s"><em>${w[0]}</em></i></span>`
+    : `<span class="w"><i style="animation-delay:${.12+i*.07}s">${w[0]}</i></span>`).join(' ');
+})();
 // clock (viewer's own time)
 function tick(){
   const d=new Date();
@@ -238,27 +295,29 @@ const el=document.getElementById('termtext');
 let ci=0,chi=0,del=false;
 (function type(){
   const c=cmds[ci];
-  if(!del){chi++;if(chi>=c.length){del=true;setTimeout(type,1400);el.textContent=c;return;}}
+  if(!del){chi++;if(chi>=c.length){del=true;setTimeout(type,1500);el.textContent=c;return;}}
   else{chi--;if(chi<=0){del=false;ci=(ci+1)%cmds.length;}}
   el.textContent=c.slice(0,chi);
-  setTimeout(type,del?22:60);
+  setTimeout(type,del?22:58);
 })();
 // marquee
 const words=["AI Agents","Evals","Next.js","TypeScript","Python","GTM Tooling","React","Postgres","Local LLMs","Product Craft"];
-const seq=words.map(w=>`<span>${w} \u2726</span>`).join('');
+const seq=words.map((w,i)=>i%2?`<span class="alt">${w} \u2726</span>`:`<span>${w} \u2726</span>`).join('');
 document.getElementById('track').innerHTML=seq+seq;
-// tilt
-document.querySelectorAll('.tile:not(.marq)').forEach(t=>{
-  t.addEventListener('mousemove',e=>{
-    const r=t.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-    t.style.transform=`perspective(800px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-2px)`;
+// subtle tilt
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.tile:not(.marq)').forEach(t=>{
+    t.addEventListener('mousemove',e=>{
+      const r=t.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      t.style.transform=`perspective(900px) rotateX(${-y*3}deg) rotateY(${x*3}deg) translateY(-3px)`;
+    });
+    t.addEventListener('mouseleave',()=>{t.style.transform='';});
   });
-  t.addEventListener('mouseleave',()=>{t.style.transform='';});
-});
+}
 // reveal
 if(location.hash==='#all'){document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));}
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
