@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siva Dheeraj - Preview C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF5EC; --card:#FFFFFF; --line:#EAE1CE; --ink:#1C1A15; --muted:#7A7466;
+  --orange:#C2410C; --indigo:#4F46E5; --teal:#0D9488; --pink:#DB2777; --amber:#F59E0B;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--orange);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* preview switcher */
+.previews{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:70;display:flex;gap:6px;background:var(--ink);border-radius:999px;padding:6px;box-shadow:0 8px 30px rgba(28,26,21,.35)}
+.previews a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a39e93;text-decoration:none;padding:7px 16px;border-radius:999px;transition:all .25s}
+.previews a.on{background:var(--orange);color:#fff}
+.previews a:not(.on):hover{color:#fff}
+.previews .tag{color:#a39e93;padding:7px 4px 7px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0}
+nav .logo{font-weight:800;font-size:19px;text-decoration:none;color:var(--ink);letter-spacing:-.02em}
+nav .logo span{color:var(--orange)}
+nav .links a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-left:22px;transition:color .2s}
+nav .links a:hover{color:var(--orange)}
+@media(max-width:640px){nav .links a{margin-left:12px}}
+/* bento grid */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:10px 0 20px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;transform-style:preserve-3d;will-change:transform}
+.tile:hover{box-shadow:0 18px 44px rgba(28,26,21,.12)}
+.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.row2{grid-row:span 2}
+@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}.span3,.span4{grid-column:span 2}}
+@media(max-width:560px){.bento{grid-template-columns:1fr}.span2,.span3,.span4{grid-column:span 1}}
+/* hero tile */
+.hero-tile{background:linear-gradient(135deg,#FFF8EC 0%,#FFEEDD 100%)}
+.hero-tile .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-tile h1{font-size:clamp(38px,5vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.03em;margin-top:16px}
+.hero-tile h1 em{font-style:normal;color:var(--orange)}
+.hero-tile p{margin-top:18px;font-size:15px;line-height:1.65;color:var(--muted);max-width:460px}
+/* availability */
+.avail{display:flex;flex-direction:column;justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:9px;background:#ECFDF5;border:1px solid #A7F3D0;color:#047857;font-family:'JetBrains Mono',monospace;font-size:11.5px;border-radius:999px;padding:8px 16px;width:fit-content}
+.pill .pd{width:8px;height:8px;border-radius:50%;background:#10B981;animation:pl 1.6s ease-out infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}100%{box-shadow:0 0 0 9px rgba(16,185,129,0)}}
+.avail .big{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:16px;line-height:1.3}
+/* clock */
+.clock{background:var(--ink);color:#F5F1E8;display:flex;flex-direction:column;justify-content:space-between}
+.clock .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8f8a7d}
+.clock .time{font-size:clamp(30px,3.4vw,44px);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:10px}
+.clock .date{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#8f8a7d;margin-top:6px}
+/* terminal */
+.term{background:#111318;color:#C9D1D9;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;display:flex;flex-direction:column;justify-content:center}
+.term .bar{display:flex;gap:6px;margin-bottom:14px}
+.term .bar i{width:10px;height:10px;border-radius:50%;display:block}
+.term .bar i:nth-child(1){background:#FF5F57}.term .bar i:nth-child(2){background:#FEBC2E}.term .bar i:nth-child(3){background:#28C840}
+.term .ln{white-space:nowrap;overflow:hidden}
+.term .p{color:#7EE787}
+.term .c{color:#79C0FF}
+/* featured project */
+.feat{background:linear-gradient(135deg,#1C1A15 0%,#33301F 100%);color:#F5F1E8}
+.feat .tag2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.feat h3{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em;margin-top:12px}
+.feat p{margin-top:12px;font-size:14px;line-height:1.65;color:#B9B3A4;max-width:520px}
+.feat .links{margin-top:20px;display:flex;gap:14px}
+.btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;padding:11px 22px;border-radius:999px;transition:transform .2s,background .2s,color .2s}
+.btn.solid{background:var(--amber);color:#1C1A15}
+.btn.ghost{border:1px solid #5C5747;color:#F5F1E8}
+.btn:hover{transform:translateY(-2px)}
+/* mini projects */
+.mini .m-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange)}
+.mini h4{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-top:8px}
+.mini p{font-size:12.5px;line-height:1.55;color:var(--muted);margin-top:8px}
+.mini .m-links{margin-top:14px}
+.mini .m-links a{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);text-decoration:none;margin-right:14px;border-bottom:1px solid transparent;transition:border .2s}
+.mini .m-links a:hover{border-color:var(--orange)}
+.mini.imgtile{padding:0;display:flex;flex-direction:column}
+.mini.imgtile img{width:100%;display:block;border-bottom:1px solid var(--line)}
+.mini.imgtile .pad{padding:20px 24px 24px}
+/* marquee tile */
+.marq{background:var(--orange);color:#FFF4E8;display:flex;align-items:center;overflow:hidden;white-space:nowrap;padding:20px 0}
+.marq .track{display:inline-block;animation:scroll 22s linear infinite}
+.marq span{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0 24px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+/* about tile */
+.about-tile{background:linear-gradient(135deg,#EEF2FF 0%,#E0E7FF 100%)}
+.about-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo)}
+.about-tile h3{font-size:clamp(19px,2.2vw,26px);font-weight:700;letter-spacing:-.02em;line-height:1.35;margin-top:12px}
+.about-tile h3 span{color:var(--indigo)}
+.about-tile p{margin-top:14px;font-size:13.5px;line-height:1.7;color:#4B4A63}
+/* contact tile */
+.contact-tile{background:linear-gradient(135deg,#FDF2F8 0%,#FCE7F3 100%)}
+.contact-tile .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.contact-tile h3{font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;margin-top:12px}
+.contact-tile h3 span{color:var(--pink)}
+.contact-tile .email{display:inline-block;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--pink);padding-bottom:3px;transition:color .2s}
+.contact-tile .email:hover{color:var(--pink)}
+.contact-tile .socials{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
+.contact-tile .socials a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.contact-tile .socials a:hover{color:var(--pink)}
+footer{padding:26px 0 110px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:translateY(0) scale(1)}
+</style>
+</head>
+<body>
+<div class="previews"><span class="tag">Preview</span><a href="../a/">A</a><a href="../b/">B</a><a href="../c/" class="on">C</a></div>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#">siva<span>dheeraj</span>.</a>
+    <div class="links">
+      <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><a href="https://sivadheeraj.vercel.app/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+    </div>
+  </nav>
+
+  <div class="bento">
+    <div class="tile span2 row2 hero-tile rv">
+      <p class="eyebrow">Full-stack developer</p>
+      <h1>Building products, <em>agents &amp; evals</em> for the AI era.</h1>
+      <p>I design and ship web products end to end - from agent evaluation platforms and benches to local-first GTM tooling.</p>
+    </div>
+
+    <div class="tile span2 avail rv">
+      <span class="pill"><span class="pd"></span>Open to new opportunities</span>
+      <div class="big">Latest launch:<br>SignalDesk &#8599;</div>
+    </div>
+
+    <div class="tile clock rv">
+      <span class="lbl">Your local time</span>
+      <div class="time" id="time">--:--:--</div>
+      <div class="date" id="date"></div>
+    </div>
+
+    <div class="tile term rv">
+      <div>
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="ln"><span class="p">siva@dev</span>:~$ <span id="termtext"></span><span class="c">&#9612;</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bento" id="work">
+    <div class="tile span2 feat rv">
+      <span class="tag2">Featured project</span>
+      <h3>SignalDesk</h3>
+      <p>GTM workspace - evidence-backed account scoring, traceable research runs and reviewable outreach drafts. Runs hosted or fully local.</p>
+      <div class="links">
+        <a class="btn solid" href="https://signaldesk-gtm-mzy9.onrender.com/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
+        <a class="btn ghost" href="https://github.com/Sivadheeraj5356/signaldesk-gtm" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+      </div>
+    </div>
+    <div class="tile span2 mini imgtile rv">
+      <img src="https://raw.githubusercontent.com/Sivadheeraj5356/portfolio/main/public/images/portfolio-mockai.png" alt="Mock AI" loading="lazy" onerror="this.style.display='none'">
+      <div class="pad">
+        <span class="m-num">03</span>
+        <h4>Mock AI</h4>
+        <p>AI interview practice platform with realistic simulated interviews and instant, structured feedback.</p>
+        <div class="m-links">
+          <a href="https://mock-ai-one.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
+          <a href="https://github.com/Sivadheeraj5356/mock-ai" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+        </div>
+      </div>
+    </div>
+    <div class="tile mini rv">
+      <span class="m-num">01</span>
+      <h4>AgentForge</h4>
+      <p>Evaluation infrastructure for AI agents - 23-task Horizon v1 catalog, hidden graders, staged rewards.</p>
+      <div class="m-links">
+        <a href="https://agentforge-omega-khaki.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
+        <a href="https://github.com/Sivadheeraj5356/agentforge" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+      </div>
+    </div>
+    <div class="tile mini rv">
+      <span class="m-num">04</span>
+      <h4>Vela Scheduler Bench</h4>
+      <p>Eval environment for scheduling agents - timezone math, multi-party constraints, staged graders.</p>
+      <div class="m-links">
+        <a href="https://github.com/Sivadheeraj5356/vela-scheduler-bench" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+      </div>
+    </div>
+    <div class="tile mini rv">
+      <span class="m-num">05</span>
+      <h4>QuizSift</h4>
+      <p>Scored quiz builder for lead qualification and product recommendations, shareable with a link.</p>
+      <div class="m-links">
+        <a href="https://github.com/Sivadheeraj5356/quizsift" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+      </div>
+    </div>
+    <div class="tile mini rv">
+      <span class="m-num">06</span>
+      <h4>Tutor AI</h4>
+      <p>AI tutor that explains concepts, answers questions and builds personalized learning paths.</p>
+      <div class="m-links">
+        <a href="https://tutor-ai-red.vercel.app/" target="_blank" rel="noopener noreferrer">Live &#8599;</a>
+        <a href="https://github.com/Sivadheeraj5356/Tutor-AI" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="bento">
+    <div class="tile span4 marq rv"><div class="track" id="track"></div></div>
+    <div class="tile span2 about-tile rv" id="about">
+      <span class="lbl">About</span>
+      <h3>Craft-first: clean interfaces, honest tooling, software that <span>does what it says.</span></h3>
+      <p>Working across Next.js, React, TypeScript and Python. Recent work: AI agents and how to evaluate them - hidden verifiers, benches for scheduling and ad-creative agents on real failure modes. Before that, consumer apps like Mock AI, Tutor AI and Pomodoro.</p>
+    </div>
+    <div class="tile span2 contact-tile rv" id="contact">
+      <span class="lbl">Contact</span>
+      <h3>Let&rsquo;s build <span>something.</span></h3>
+      <a class="email" href="mailto:sivadheeraj5356@gmail.com">sivadheeraj5356@gmail.com</a>
+      <div class="socials">
+        <a href="https://github.com/Sivadheeraj5356" target="_blank" rel="noopener noreferrer">GitHub &#8599;</a>
+        <a href="https://x.com/siva_dheeraj_" target="_blank" rel="noopener noreferrer">X &#8599;</a>
+        <a href="https://www.linkedin.com/in/siva-dheeraj-7b343521a/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+      </div>
+    </div>
+  </div>
+
+  <footer><span>&copy; 2026 Siva Dheeraj</span><span>Design preview C</span></footer>
+</div>
+<script>
+// clock (viewer's own time)
+function tick(){
+  const d=new Date();
+  document.getElementById('time').textContent=d.toLocaleTimeString('en-GB');
+  document.getElementById('date').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+}
+tick();setInterval(tick,1000);
+// terminal typing loop
+const cmds=["npx create-next-app@latest","git commit -m 'ship it'","python run_eval.py --suite horizon","npm run build && deploy"];
+const el=document.getElementById('termtext');
+let ci=0,chi=0,del=false;
+(function type(){
+  const c=cmds[ci];
+  if(!del){chi++;if(chi>=c.length){del=true;setTimeout(type,1400);el.textContent=c;return;}}
+  else{chi--;if(chi<=0){del=false;ci=(ci+1)%cmds.length;}}
+  el.textContent=c.slice(0,chi);
+  setTimeout(type,del?22:60);
+})();
+// marquee
+const words=["AI Agents","Evals","Next.js","TypeScript","Python","GTM Tooling","React","Postgres","Local LLMs","Product Craft"];
+const seq=words.map(w=>`<span>${w} \u2726</span>`).join('');
+document.getElementById('track').innerHTML=seq+seq;
+// tilt
+document.querySelectorAll('.tile:not(.marq)').forEach(t=>{
+  t.addEventListener('mousemove',e=>{
+    const r=t.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    t.style.transform=`perspective(800px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-2px)`;
+  });
+  t.addEventListener('mouseleave',()=>{t.style.transform='';});
+});
+// reveal
+if(location.hash==='#all'){document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
