@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Siva Dheeraj - Animated Preview C</title>
+<title>Siva Dheeraj - Cream Motion Preview</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Instrument+Serif:ital@1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
@@ -50,10 +50,10 @@ nav .links a:hover{color:var(--orange)}
 .hero{background:linear-gradient(150deg,#FFF9EC 0%,#FFE9D6 100%);display:flex;flex-direction:column;justify-content:center}
 .hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px}
 .hero .eyebrow::before{content:"";width:30px;height:1px;background:var(--orange)}
-.hero h1{font-size:clamp(40px,4.9vw,68px);font-weight:800;line-height:.99;letter-spacing:-.035em;margin-top:18px}
-.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
-.hero h1 .w i{display:inline-block;font-style:normal;transform:translateY(110%);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
-.hero h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--orange);letter-spacing:-.01em}
+.hero h2{font-size:clamp(40px,4.9vw,68px);font-weight:800;line-height:.99;letter-spacing:-.035em;margin-top:18px}
+.hero h2 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h2 .w i{display:inline-block;font-style:normal;transform:translateY(110%);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
+.hero h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--orange);letter-spacing:-.01em}
 @keyframes rise{to{transform:translateY(0)}}
 .hero p{margin-top:20px;font-size:15px;line-height:1.7;color:var(--muted);max-width:440px}
 /* availability */
@@ -143,10 +143,26 @@ html{scroll-behavior:auto}html.lenis,html.lenis body{height:auto}.lenis.lenis-sm
 .imgtile .imgwrap{transform:scaleY(var(--stretch,1));transform-origin:center;will-change:transform}.imgtile img{transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .code-stack{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}.code-stack span{font:10px 'JetBrains Mono';border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted)}
 .tile:not(.marq){will-change:transform}nav .logo{transition:transform .5s cubic-bezier(.16,1,.3,1)}nav .logo:hover{transform:translateX(6px)}
-@media(prefers-reduced-motion:reduce){#motion-intro{display:none}.rv{opacity:1;transform:none}.hero h1 .w i{transform:none}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){#motion-intro{display:none}.rv{opacity:1;transform:none}.hero h2 .w i{transform:none}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Identity and motion revision */
+.identity{padding:38px 0 45px;position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);margin-bottom:24px}
+.identity-kicker,.identity-bottom{display:flex;justify-content:space-between;gap:24px;font:10px 'JetBrains Mono';letter-spacing:.12em;color:var(--muted)}
+.identity-bottom{margin-top:30px;font-size:11px;letter-spacing:.03em}.identity-bottom span:first-child{color:var(--green)}
+.name{font:800 clamp(70px,12.6vw,164px)/1.05 'Sora',sans-serif;letter-spacing:-.075em;white-space:nowrap;color:var(--ink);padding:18px 5px 5px 0;display:flex;gap:.22em}
+.name-line{display:inline-block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}.name-line>span{display:inline-block;transform:translateY(115%);animation:nameReveal 1.5s cubic-bezier(.16,1,.3,1) .12s forwards}.name-line:nth-child(2)>span{animation-delay:.24s}
+@keyframes nameReveal{to{transform:translateY(0)}}
+.tile.rv.in{transform:none;transition:opacity .9s ease,box-shadow .4s,transform .8s cubic-bezier(.16,1,.3,1)}
+#work>.tile{clip-path:inset(12% 0 0 0 round 26px);opacity:0;transform:translateY(55px);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),opacity .7s!important}
+#work>.tile.in{clip-path:inset(0 0 0 0 round 26px);opacity:1;transform:translateY(0)}
+.imgtile .imgwrap{overflow:hidden;transform:none}.imgtile img{transform:translateY(var(--image-y,0px)) scale(1.1);will-change:transform}.imgtile:hover img{transform:translateY(var(--image-y,0px)) scale(1.14)}
+.btn{will-change:transform;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .4s}
+.name .name-line>span{will-change:transform}.identity-index{color:var(--orange)}
+@media(max-width:560px){.identity{padding-top:24px;padding-bottom:28px;margin-bottom:15px}.identity-kicker{font-size:8px;letter-spacing:.05em}.name{font-size:17vw;letter-spacing:-.075em;display:block;line-height:1.02;white-space:normal;padding-top:22px}.name-line{display:block}.name-line:nth-child(2){text-align:right}.identity-bottom{font-size:8px;gap:10px;margin-top:24px}.identity-bottom span:last-child{white-space:nowrap}}
+@media(prefers-reduced-motion:reduce){.name-line>span{transform:none}#work>.tile{clip-path:none;opacity:1;transform:none}}
 </style>
 <noscript><style>#motion-intro{display:none}.rv{opacity:1;transform:none}.hero h1 .w i{transform:none}</style></noscript></head>
-<body><div aria-hidden="true" id="motion-intro"><span>SIVA DHEERAJ</span><strong>Ideas into products.</strong></div>
+<body>
 <div class="grain"></div>
 <div class="wm">SD</div>
 <div class="previews"><span class="tag">Preview</span><a href="../a/">A</a><a href="../b/">B</a><a class="on" href="../c/">C</a></div>
@@ -156,11 +172,11 @@ html{scroll-behavior:auto}html.lenis,html.lenis body{height:auto}.lenis.lenis-sm
 <div class="links">
 <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><a href="https://drive.google.com/file/d/13vHE0NtdXqOnCoZlcM4rizgSDVdeEWZj/view?usp=drivesdk" rel="noopener noreferrer" target="_blank">Resume</a>
 </div>
-</nav>
+</nav><header aria-label="Siva Dheeraj" class="identity"><div class="identity-kicker"><span>ENGINEERING / LLM SYSTEMS</span><span class="identity-index">PORTFOLIO 2026</span></div><h1 class="name"><span class="name-line"><span>Siva</span></span> <span class="name-line"><span>Dheeraj</span></span></h1><div class="identity-bottom"><span>Forward Deployed Engineer</span><span>SCROLL TO EXPLORE ↓</span></div></header>
 <div class="grid">
 <div class="tile s4 r2 hero rv" style="--d:.02s">
 <p class="eyebrow">Full-stack developer</p>
-<h1 id="hero1"></h1>
+<h2 id="hero1"></h2>
 <p>I design and ship web products end to end - from agent evaluation platforms and benches to local-first GTM tooling.</p>
 </div>
 <div class="tile s2 avail rv" style="--d:.10s">
@@ -301,16 +317,12 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script><script>
 (function(){
  const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
- const intro=document.getElementById('motion-intro');
- setTimeout(()=>{intro.classList.add('done');setTimeout(()=>intro.remove(),1200)},reduced?0:1100);
- let velocity=0,skew=0,lenis;
- if(window.Lenis&&!reduced){lenis=new Lenis({lerp:.09,smoothWheel:true});lenis.on('scroll',e=>velocity=e.velocity||0);function frame(t){lenis.raf(t);requestAnimationFrame(frame)}requestAnimationFrame(frame)}
- document.querySelectorAll('nav a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href')==='#'?'body':a.getAttribute('href'));if(target){e.preventDefault();if(lenis)lenis.scrollTo(target,{duration:1.4,offset:-20});else target.scrollIntoView({behavior:reduced?'instant':'smooth'})}}));
- let lastY=scrollY;
- if(!lenis&&!reduced)window.addEventListener('scroll',()=>{velocity=(scrollY-lastY)*.3;lastY=scrollY},{passive:true});
- const gallery=[...document.querySelectorAll('#work>.tile:not(.term)')];
- function motion(){skew+=(Math.max(-2.5,Math.min(2.5,velocity*.16))-skew)*.14;gallery.forEach(t=>{t.style.setProperty('--skew',skew.toFixed(3)+'deg');t.style.setProperty('--stretch',(1+Math.min(Math.abs(skew)*.008,.025)).toFixed(4))});velocity*=.93;requestAnimationFrame(motion)}
+ let lenis;if(window.Lenis&&!reduced){lenis=new Lenis({lerp:.075,smoothWheel:true});function frame(t){lenis.raf(t);requestAnimationFrame(frame)}requestAnimationFrame(frame)}
+ document.querySelectorAll('nav a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href')==='#'?'body':a.getAttribute('href'));if(t){e.preventDefault();if(lenis)lenis.scrollTo(t,{duration:1.6,offset:-22});else t.scrollIntoView({behavior:reduced?'instant':'smooth'})}}));
+ const images=[...document.querySelectorAll('.imgtile .imgwrap')];const identity=document.querySelector('.identity');
+ function motion(){const y=scrollY;identity.style.setProperty('--scroll-y',y);images.forEach(el=>{const r=el.getBoundingClientRect();const n=(r.top+r.height/2-innerHeight/2)/innerHeight;el.style.setProperty('--image-y',Math.max(-15,Math.min(15,n*22)).toFixed(2)+'px')});requestAnimationFrame(motion)}
  if(!reduced)requestAnimationFrame(motion);
+ if(!reduced&&matchMedia('(hover:hover)').matches){document.querySelectorAll('.btn').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.2)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)'});b.addEventListener('mouseleave',()=>b.style.transform='')})}
 })();
 </script></body>
 </html>
