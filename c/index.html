@@ -154,7 +154,20 @@ footer{padding:9rem 2.2rem 2.2rem;border-top:1px solid var(--line);position:rela
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+.artifact{width:80%;max-width:480px;padding:1.6rem;border:1px solid #ffffff22;border-radius:10px;background:#101310;box-shadow:0 30px 80px #0009;transform:rotate(-4deg);transition:transform .8s var(--ease)}
+.project:hover .artifact{transform:rotate(0deg) translateY(-8px)}
+.art-top,.art-foot{font-size:.65rem;letter-spacing:.12em;color:#bbb;display:flex;justify-content:space-between;gap:1rem}.art-top b{font-weight:400;color:#3ee26d}
+.art-number{font-family:'Inter Tight';font-size:7rem;font-weight:800;line-height:1.2;color:#3ee26d;margin:.6rem 0}.art-number span{display:inline-block;width:80px;font:400 .8rem/1.4 Inter;color:#aaa;margin-left:1rem}
+.art-flow{display:flex;gap:.8rem;align-items:center;font-size:.6rem;letter-spacing:.08em;color:#aaa}.art-flow span{padding:.7rem;border:1px solid #ffffff22;border-radius:4px}.art-flow i{color:#3ee26d}
+.art-bars{display:flex;gap:5px;height:22px;margin:1.5rem 0}.art-bars i{flex:1;background:#3ee26d22;border-top:2px solid #3ee26d;animation:barPulse 3s ease-in-out infinite alternate}.art-bars i:nth-child(3n){animation-delay:-1s}.art-bars i:nth-child(2n){animation-delay:-2s}
+@keyframes barPulse{to{background:#3ee26d66;transform:scaleY(.5)}}
+.code-art{background:#191310;transform:rotate(4deg)}.code-art .art-top b{color:#ff7e57}.art-prompt{font-family:'Inter Tight';font-size:2.4rem;font-weight:600;line-height:1.05;margin:1.7rem 0}.art-prompt em{font-weight:400;color:#ff7e57}.art-code{font:400 .7rem/2.1 monospace;border-top:1px solid #ffffff22;border-bottom:1px solid #ffffff22;padding:.7rem 0;margin-bottom:1rem}.art-code span{color:#ff7e57;margin-right:.8rem}
+@media(max-width:600px){.artifact{padding:1rem}.art-number{font-size:5rem}.art-prompt{font-size:1.8rem;margin:1rem 0}.art-bars{margin:1rem 0}.art-top,.art-foot{font-size:.5rem}.art-flow{font-size:.45rem;gap:.5rem}.hero-marquee{top:34%}.hero-marquee span{font-size:35vw}.sec-head .count{font-size:.7rem;white-space:nowrap}.hero-grid{gap:1.3rem}}
+@media(min-width:861px){.hero-marquee{top:38%}.hero-marquee span{font-size:23vw}.hero-role{max-width:26rem}}
+
 </style>
+<noscript><style>#preloader{display:none}.mask>span{transform:none}</style></noscript>
 </head>
 <body>
 
@@ -177,12 +190,12 @@ footer{padding:9rem 2.2rem 2.2rem;border-top:1px solid var(--line);position:rela
 
 <header class="hero">
   <div class="hero-marquee" id="heroMarquee">
-    <span>Siva Dheeraj <i>&mdash;</i> Siva Dheeraj <i>&mdash;</i>&nbsp;</span><span>Siva Dheeraj <i>&mdash;</i> Siva Dheeraj <i>&mdash;</i>&nbsp;</span>
+    <span>Siva Dheeraj <i>&middot;</i> Siva Dheeraj <i>&middot;</i>&nbsp;</span><span>Siva Dheeraj <i>&middot;</i> Siva Dheeraj <i>&middot;</i>&nbsp;</span>
   </div>
   <div class="hero-grid">
     <div class="pill reveal-item">
       <span class="dotpulse"></span>
-      <span>Open to forward-deployed &amp; LLM engineering work &nbsp;&middot;&nbsp; <span id="clock">--:--</span> IST</span>
+      <span>Forward-deployed &amp; LLM engineering &nbsp;&middot;&nbsp; <span id="clock">--:--</span> IST</span>
     </div>
     <div class="hero-role">
       <h1>
@@ -203,7 +216,7 @@ footer{padding:9rem 2.2rem 2.2rem;border-top:1px solid var(--line);position:rela
 
   <div class="projects">
     <a class="project warp" href="https://github.com/Sivadheeraj5356/agentforge" target="_blank" rel="noopener">
-      <div class="p-media"><div class="inner"><div class="p-visual v-agentforge"><span class="giant">AF</span></div></div></div>
+      <div class="p-media"><div class="inner"><div class="p-visual v-agentforge"><div class="artifact forge-art"><div class="art-top">AGENTFORGE <b>HORIZON v1</b></div><div class="art-number">23<span>evaluation tasks</span></div><div class="art-flow"><span>CONTROL PLANE</span><i>&#8594;</i><span>EVALUATOR</span></div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="art-foot">TASKS / TESTS / VERIFIERS</div></div></div></div></div>
       <div class="p-info">
         <span class="idx">01 / AGENT EVALUATION</span>
         <h3>AgentForge <span class="arrow">&#8599;</span></h3>
@@ -213,7 +226,7 @@ footer{padding:9rem 2.2rem 2.2rem;border-top:1px solid var(--line);position:rela
     </a>
 
     <a class="project warp" href="https://github.com/Sivadheeraj5356/CodeDevIDE" target="_blank" rel="noopener">
-      <div class="p-media"><div class="inner"><div class="p-visual v-codedevai"><span class="giant">CD</span></div></div></div>
+      <div class="p-media"><div class="inner"><div class="p-visual v-codedevai"><div class="artifact code-art"><div class="art-top">CODEDEVAI <b>IDE / AGENT</b></div><div class="art-prompt">Build something<br><em>from an idea.</em></div><div class="art-code"><span>01</span> requirements &rarr; plan<br><span>02</span> retrieval + tools<br><span>03</span> generate + validate</div><div class="art-foot">NATURAL LANGUAGE &rarr; APPLICATION</div></div></div></div></div>
       <div class="p-info">
         <span class="idx">02 / AGENTIC GENERATION</span>
         <h3>CodeDevAI <span class="arrow">&#8599;</span></h3>
@@ -255,7 +268,7 @@ footer{padding:9rem 2.2rem 2.2rem;border-top:1px solid var(--line);position:rela
 <section id="about" class="about">
   <p class="big">
     <span class="mask"><span>Engineer who builds and delivers <em>LLM systems</em></span></span>
-    <span class="mask d1"><span>for real users &mdash; <em>RAG pipelines,</em> agent evaluations</span></span>
+    <span class="mask d1"><span>for real users &middot; <em>RAG pipelines,</em> agent evaluations</span></span>
     <span class="mask d2"><span>and production features, end to end.</span></span>
   </p>
   <div class="meta">
